@@ -1,21 +1,11 @@
-import { Client } from 'pg';
 import { faker } from '@faker-js/faker';
 import bcrypt from 'bcrypt';
-import { loadEnvConfig } from '@next/env';
-
-const projectDir = process.cwd();
-loadEnvConfig(projectDir);
+import { getClient } from '@/db';
 
 async function loadFakeData (numUsers: number): Promise<void> {
   console.log(`Executing load fake data. Generating ${numUsers} users...`);
 
-  const client = new Client({
-    user: process.env.PG_USER,
-    password: process.env.PG_PASSWORD,
-    host: process.env.PG_HOST,
-    database: process.env.PG_DB,
-    port: Number(process.env.PG_PORT)
-  });
+  const client = getClient();
 
   await client.connect();
 
