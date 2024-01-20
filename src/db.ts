@@ -1,4 +1,4 @@
-import { Client } from 'pg';
+import { type QueryResult, Client } from 'pg';
 import { loadEnvConfig } from '@next/env';
 
 const projectDir = process.cwd();
@@ -14,4 +14,12 @@ export function getClient (): Client {
   });
 
   return client;
+}
+
+export async function sql (sql: string, values?: any[]): Promise<QueryResult<any>> {
+  const client = getClient();
+  await client.connect();
+  const res = await client.query(sql, values);
+  await client.end();
+  return res;
 }
