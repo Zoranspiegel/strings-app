@@ -16,6 +16,7 @@
     ],
     "rules": {
         "@typescript-eslint/semi": ["error", "always"],
+        "@typescript-eslint/strict-boolean-expressions": "off",
         "react/react-in-jsx-scope": "off"
     }
 }
