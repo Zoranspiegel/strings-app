@@ -28,10 +28,9 @@ export default function SignupForm (): JSX.Element {
     if (!res.ok) {
       const resJSON = await res.json();
       setErrors(prevState => [...prevState, resJSON.error]);
-      return;
+    } else {
+      router.push('/feed');
     }
-
-    router.push('/feed');
   }
 
   return (

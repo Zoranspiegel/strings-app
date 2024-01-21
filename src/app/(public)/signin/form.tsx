@@ -7,17 +7,22 @@ export default function SigninForm (): JSX.Element {
   const router = useRouter();
   const [username, setUsername] = useState<undefined | string>('');
   const [password, setPassword] = useState<undefined | string>('');
+  const [errors, setErrors] = useState<string[]>([]);
 
   async function handleSubmit (e: FormEvent): Promise<void> {
     e.preventDefault();
+
+    setErrors([]);
+
     const res = await fetch('/api/login', {
       method: 'post',
       body: JSON.stringify({ username, password })
     });
-    if (res.ok) {
-      router.push('/feed');
+    if (!res.ok) {
+      const resJSON = await res.json();
+      setErrors(prevState => [...prevState, resJSON.error]);
     } else {
-      alert('Log in failed');
+      router.push('/feed');
     }
   }
 
@@ -57,6 +62,18 @@ export default function SigninForm (): JSX.Element {
             className='text-black p-3 border border-slate-700 rounded-lg w-full'
           />
         </div>
+      </div>
+      <div>
+        <ul className='flex justify-center items-center mb-2'>
+          {errors?.map(error => {
+            return (
+              <li
+                key={error}
+                className='list-disc text-[13px] text-red-600'
+              >{error}</li>
+            );
+          })}
+        </ul>
       </div>
       <button
         type='submit'
