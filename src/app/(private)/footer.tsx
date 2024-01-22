@@ -1,7 +1,7 @@
 export default function Footer (): JSX.Element {
   return (
     <footer>
-      FOOTER
+      &copy; Strings {new Date().getFullYear()}
     </footer>
   );
 }
