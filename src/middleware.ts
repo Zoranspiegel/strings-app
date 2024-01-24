@@ -5,7 +5,8 @@ export async function middleware (request: NextRequest): Promise<NextResponse | 
   const pathname = request.nextUrl.pathname;
 
   const authenticatedAPIRoutes = [
-    pathname.startsWith('/api/users')
+    pathname.startsWith('/api/users'),
+    pathname.startsWith('/api/posts')
   ];
 
   if (authenticatedAPIRoutes.includes(true)) {
@@ -18,7 +19,7 @@ export async function middleware (request: NextRequest): Promise<NextResponse | 
       const secret = new TextEncoder().encode(process.env.JWT_SECRET);
       await jwtVerify(cookie.value, secret);
     } catch (error) {
-      return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+      return NextResponse.json({ error: 'Unauthenticated' }, { status: 401 });
     }
   }
 }
