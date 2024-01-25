@@ -4,3 +4,11 @@ interface UserI {
   username: string;
   avatar: string;
 }
+
+interface PostI {
+  id: number
+  username: string
+  avatar: string
+  content: string
+  created_at: string
+}
