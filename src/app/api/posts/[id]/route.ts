@@ -52,3 +52,29 @@ export async function PATCH (request: Request, { params }: { params: { id: numbe
   const response = NextResponse.json({ msg: 'Update success' }, { status: 200 });
   return response;
 }
+
+export async function DELETE (request: Request, { params }: { params: { id: number } }): Promise<NextResponse> {
+  const jwtPayload = await getJWTPayload();
+
+  const client = getClient();
+  await client.connect();
+
+  const post = await client.query(
+    'select id from public.posts where user_id = $1 and id = $2',
+    [jwtPayload?.sub, params.id]
+  );
+
+  if (!post.rowCount) {
+    return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  }
+
+  await client.query(
+    'delete from public.posts where user_id = $1 and id = $2',
+    [jwtPayload?.sub, params.id]
+  );
+
+  await client.end();
+
+  const response = NextResponse.json({ msg: 'Delete success' }, { status: 201 });
+  return response;
+}
