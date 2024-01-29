@@ -40,3 +40,23 @@ export async function GET (request: Request): Promise<NextResponse> {
   const response = NextResponse.json(userPosts, { status: 200 });
   return response;
 }
+
+export async function POST (request: Request): Promise<NextResponse> {
+  const reqJSON = await request.json();
+  const content = reqJSON.content;
+
+  const jwtPayload = await getJWTPayload();
+
+  const client = getClient();
+  await client.connect();
+
+  const newPost = await client.query(
+    'insert into public.posts (user_id, content) values ($1, $2) returning *',
+    [jwtPayload?.sub, content]
+  );
+
+  await client.end();
+
+  const response = NextResponse.json({ msg: 'Post successfully created', data: newPost.rows[0] }, { status: 201 });
+  return response;
+}
