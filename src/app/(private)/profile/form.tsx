@@ -34,7 +34,8 @@ export default function NewPostForm (): JSX.Element {
         value={postState}
         onChange={onChange}
         placeholder="What's happening?"
-        className='bg-gray-700 p-2 rounded-lg w-full my-2'
+        rows={4}
+        className='bg-gray-700 p-2 rounded-lg w-full my-2 resize-none'
       />
       <button
         type='submit'
