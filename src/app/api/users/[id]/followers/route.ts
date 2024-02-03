@@ -10,13 +10,6 @@ export async function GET (request: Request, { params }: { params: { id: string 
   const client = getClient();
   await client.connect();
 
-  // const followerUsersRes = await client.query(
-  //   `select id, username, avatar from public.users 
-  //   where id in (select follower_id from public.follows where user_id = $1) 
-  //   order by created_at desc limit $2 offset $3`,
-  //   [params.id, limit, offset]
-  // );
-
   const followerUsersRes = await client.query(
     `select u.id, u.username, u.avatar from public.users u 
     inner join public.follows f on u.id = f.follower_id 
