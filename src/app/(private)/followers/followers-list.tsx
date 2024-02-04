@@ -1,4 +1,3 @@
-'use client';
 import User from '@/app/components/user';
 import useSWR from 'swr';
 

@@ -1,3 +1,4 @@
+'use client';
 import FollowersContainer from './followers-container';
 
 export default function Followers (): JSX.Element {
