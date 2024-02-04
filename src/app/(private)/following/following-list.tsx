@@ -8,10 +8,8 @@ export default function FollowingList ({
   page: number
 }): JSX.Element {
   const { data: userData } = useSWR('/api/users/profile');
-  const { data: followersData, isLoading, error } = useSWR('/api/users/' + userData.data.id + '/following?page=' + page);
+  const { data: followersData } = useSWR('/api/users/' + userData.data.id + '/following?page=' + page);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>ERROR</div>;
   return (
     <ul>
       {followersData.map((user: UserI) => (
