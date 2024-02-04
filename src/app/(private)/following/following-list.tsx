@@ -7,7 +7,7 @@ export default function FollowingList ({
   page: number
 }): JSX.Element {
   const { data: userData } = useSWR('/api/users/profile');
-  const { data: followersData } = useSWR('/api/users/' + userData.data.id + '/following?page=' + page);
+  const { data: followersData } = useSWR(() => '/api/users/' + userData.data.id + '/following?page=' + page);
 
   if (!followersData) return <div>loading...</div>;
 
