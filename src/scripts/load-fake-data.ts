@@ -19,7 +19,7 @@ async function loadFakeData (numUsers: number): Promise<void> {
     for (let i = 0; i < numUsers; i++) {
       await client.query(
         'insert into public.users (username, password, avatar) values ($1, $2, $3)',
-        [faker.internet.userName(), hash, faker.image.avatar()]
+        [faker.internet.userName(), hash, faker.image.avatarLegacy()]
       );
     }
 
