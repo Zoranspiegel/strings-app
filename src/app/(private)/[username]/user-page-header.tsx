@@ -1,5 +1,6 @@
 import useSWR, { mutate } from 'swr';
 import Image from 'next/image';
+import { notFound } from 'next/navigation';
 
 export default function UserPageHeader ({
   username
@@ -10,7 +11,7 @@ export default function UserPageHeader ({
   const { data: userFollows, isLoading: followsLoading, error: followsError } = useSWR(() => `/api/follows?user_id=${user.id}`);
 
   if (userLoading || followsLoading) return <div>Loading...</div>;
-  if (userError || followsError) return <div>ERROR</div>
+  if (userError || followsError) return notFound();
 
   async function handleFollow (): Promise<void> {
     const res = await fetch('/api/follows', {

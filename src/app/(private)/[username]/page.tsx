@@ -1,12 +1,14 @@
 'use client';
 
 import UserPageHeader from './user-page-header';
+import PostContainer from '@/app/components/post-container';
 
 export default function UsernamePage ({ params }: { params: { username: string } }): JSX.Element {
   return (
-    <div>
+    <div className='flex flex-col gap-4'>
       <UserPageHeader username={params.username} />
-      <div>Posts container {params.username}</div>
+      <hr />
+      <PostContainer username={params.username}/>
     </div>
   );
 }

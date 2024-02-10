@@ -16,7 +16,7 @@ export default function PrivateLayout ({
         <Header />
         <NavBar />
         <main
-          className='w-full p-5 bg-slate-800 rounded-lg my-2'
+          className='flex flex-grow w-full p-5 bg-slate-800 rounded-lg my-2'
         >{children}</main>
         <Footer />
       </div>
