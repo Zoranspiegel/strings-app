@@ -9,6 +9,7 @@ export function getClient (): Client {
     const client = new Client({
       connectionString: process.env.POSTGRES_URL
     });
+
     return client;
   } else {
     const client = new Client({
@@ -18,6 +19,7 @@ export function getClient (): Client {
       database: process.env.PG_DB,
       port: Number(process.env.PG_PORT)
     });
+
     return client;
   }
 }
