@@ -7,7 +7,7 @@ loadEnvConfig(projectDir);
 export function getClient (): Client {
   if (process.env.POSTGRES_URL) {
     const client = new Client({
-      connectionString: process.env.POSTGRES_URL + '?sslmode=require'
+      connectionString: process.env.POSTGRES_URL
     });
     return client;
   } else {
